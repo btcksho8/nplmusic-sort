@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ナポリの男たち楽曲ランキング</title>
     <style>
         table {
@@ -53,56 +54,58 @@
         }
 
         /* ヘッダー全体のスタイル */
-    .header {
-        position: relative;
-        text-align: center;
-        background: linear-gradient(to right, mediumaquamarine, snow, salmon);
-        padding: 20px;
-        display: flex; /* flexboxを使用して画像を横に並べる */
-        align-items: center; /* 画像とテキストを垂直方向に中央揃え */
-    }
-
-    /* 画像スライダーのスタイル */
-    .image-slider {
-        position: relative;
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden; /* 横スクロールを非表示にする */
-    }
-
-    .image-slider img {
-        width: 100px;
-        height: auto;
-        
-        animation: slide 20s infinite linear; /* 画像スライドのアニメーションを設定 */
-        opacity: 0.6; /* 画像を透過させる */
-        transition: opacity 0.5s ease; /* 透過効果のトランジションを設定 */
-    }
-
-    .image-slider img:hover {
-    opacity: 1; /* マウスホバー時に画像を不透明にする */
-    }
-
-    /* ヘッダータイトルのスタイル */
-    h1 {
-        position: absolute;
-        top: 50%; /* 上端を中央に配置 */
-        left: 50%; /* 左端を中央に配置 */
-        transform: translate(-50%, -50%); /* 中央揃え */
-        font-size: 30px;
-    }
-
-    /* 画像スライドのアニメーション */
-    @keyframes slide {
-        0% {
-            transform: translateX(0);
+        .header {
+            position: relative;
+            text-align: center;
+            background: linear-gradient(to right, mediumaquamarine, snow, salmon);
+            padding: 20px;
+            display: flex; /* flexboxを使用して画像を横に並べる */
+            align-items: center; /* 画像とテキストを垂直方向に中央揃え */
         }
-        100% {
-            transform: translateX(-100%); /* 画像が左にスライド */
+
+
+        /* 画像スライダーのスタイル */
+        .image-slider {
+            position: relative;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden; /* 横スクロールを非表示にする */
         }
-    }
+
+        .image-slider img {
+            width: 100px;
+            height: auto;
+            
+            animation: slide 20s infinite linear; /* 画像スライドのアニメーションを設定 */
+            opacity: 0.6; /* 画像を透過させる */
+            transition: opacity 0.5s ease; /* 透過効果のトランジションを設定 */
+        }
+
+        .image-slider img:hover {
+        opacity: 1; /* マウスホバー時に画像を不透明にする */
+        }
+
+        /* ヘッダータイトルのスタイル */
+        h1 {
+            position: absolute;
+            top: 50%; /* 上端を中央に配置 */
+            left: 50%; /* 左端を中央に配置 */
+            transform: translate(-50%, -50%); /* 中央揃え */
+            font-size: 30px;
+        }
+
+        /* 画像スライドのアニメーション */
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%); /* 画像が左にスライド */
+            }
+        }
 
     </style>
+    
 </head>
     
 <body>
@@ -129,10 +132,15 @@
             <img src="toucar.png" alt="Image 19">
         </div>
         <h1>ナポリの男たち楽曲診断</h1>
+        <p style="position: fixed; bottom: 0; right: 0;">製作者: かま(<a href="https://twitter.com/karuma_garbage">@karuma_garbage</a>)</p>
     </div>
-    <p align="center">ニコニコ動画で無料公開されているチャンネル放送や4人実況,<br> Youtubeの歌倉庫に格納されている楽曲および切り抜き動画から聴くことができる</br>
-        全40曲の中から, あなたの好みに刺さるものをランキング形式で診断します.</p>
-    <p align="center">イイトコロジャナイノー!:はい<br>ウーロンチャアァ…:いいえ</br></p>
+
+    <div id="caution">
+        <p align="center">ニコニコ動画で無料公開されているチャンネル放送や4人実況,<br> Youtubeの歌倉庫に格納されている楽曲および切り抜き動画から聴くことができる</br>
+            全40曲の中から, あなたの好みに刺さるものを診断します.</p>
+        <p align="center">イイトコロジャナイノー!:はい<br>ウーロンチャアァ…:いいえ</br></p>
+    </div>
+
     <div id="questions">
         <!-- 質問フォーム -->
         <h2>4人の中だと一番誰推し？</h2>
@@ -143,8 +151,17 @@
     </div>
 
     <div id="results" style="display: none;">
-        <!-- 結果テーブル -->
-        <h2>順位</h2>
+          <!-- 結果テーブル -->
+          <h2 align="center">おすすめ楽曲TOP5</h2>
+          <!-- TOP2のテキストを表示 -->
+          <p id="top1" align="center"></p>
+          <p id="top2" align="center"></p>
+          <p id="top3" align="center"></p>
+          <p id="top4" align="center"></p>
+          <p id="top5" align="center"></p>
+          <!-- 空白のスペース -->
+          <div style="height: 80px;"></div>
+          <h2 align="center">ナポ男楽曲ソート結果</h2>
         <table>
             <tr>
                 <th>順位</th>
@@ -357,7 +374,7 @@
         let scores = Array(40).fill(0); // 13個の楽曲に対応する得点を0で初期化
         let currentQuestion = 1;
         let select1 = ["イイトコロジャナイノー!", "ウーロンチャアァ…"];
-        let select2 = ["いつか行きたいねナポリ", "shu3:基本一人でいたいんで…"]
+        let select2 = ["いつか行きたいねナポリ", "shu3:1人がいいっす"]
 
         // 各質問に対する楽曲のピックアップスコアを定義
         const q1 = {
@@ -408,8 +425,8 @@
         };
 
         const q10 = {
-            'イイトコロジャナイノー!': [0,1,2,3,4,7,8,9,10,13,14,23,24,26,27],
-            'ウーロンチャアァ…': [5,6,11,12,15,16,17,18,19,20,21,22,25,28,29,30,31,32,33,34,35,36,37,38,39]
+            'イイトコロジャナイノー!': [0,1,2,3,4,7,8,9,10,13,14,19,20,23,24,26,27],
+            'ウーロンチャアァ…': [5,6,11,12,15,16,17,18,21,22,25,28,29,30,31,32,33,34,35,36,37,38,39]
         };
 
         const q11 = {
@@ -429,7 +446,7 @@
 
         const q14 = {
             'いつか行きたいねナポリ': [0,6,7,32,33,34,35,39],
-            'shu3:基本一人でいたいんで…': [1,2,3,4,5,12,21,22,24,28,29,]
+            'shu3:1人がいいっす': [1,2,3,4,5,12,21,22,24,28,29,]
         };
 
         const q15 = {
@@ -684,6 +701,14 @@
                 document.getElementById(`song${i + 1}`).innerHTML = `<a href="${url}" target="_blank">${songName}</a>`;
             }
             
+            // TOP2の楽曲を表示
+            document.getElementById('top1').innerHTML = `<b>1位:</b> ${document.getElementById('song1').innerHTML}`;
+            document.getElementById('top2').innerHTML = `<b>2位:</b> ${document.getElementById('song2').innerHTML}`;
+            document.getElementById('top3').innerHTML = `<b>3位:</b> ${document.getElementById('song3').innerHTML}`;
+            document.getElementById('top4').innerHTML = `<b>4位:</b> ${document.getElementById('song4').innerHTML}`;
+            document.getElementById('top5').innerHTML = `<b>5位:</b> ${document.getElementById('song5').innerHTML}`;
+
+
                 
 
             // 次の質問を表示または結果を表示
@@ -741,14 +766,13 @@
                     currentChoices = select1; // 質問17に対する選択肢を設定
                 }
 
-
-
                 document.getElementById('questions').innerHTML = `
                     <h2>${questionText}</h2>
                     ${generateButtons(currentChoices)}
                 `;
             } else {
                 // 結果を表示
+                document.getElementById('caution').style.display = 'none';
                 document.getElementById('questions').style.display = 'none';
                 document.getElementById('results').style.display = 'block';
                 
@@ -822,6 +846,7 @@
 
             // 質問を最初の状態にリセット
             currentQuestion = 1;
+            document.getElementById('caution').style.display = 'block';
             document.getElementById('questions').style.display = 'block';
             document.getElementById('results').style.display = 'none';
 
