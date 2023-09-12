@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ナポリの男たち楽曲ランキング</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 0 auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            background-color: aliceblue;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        body {
+            background-color: floralwhite;
+        }
+        #questions {
+            text-align: center;
+        }
+
+        #results {
+            text-align: center;
+        }
+
+        #restart {
+            text-align: center;
+        }
+
+        button {
+            text-align: center;
+            display: inline-block;
+            margin: 20px;/* ボタン間の余白を調整 */
+            padding: 30px;  /* ボタンの内側の余白を調整 */
+            font-size: 20px; /* ボタンの文字サイズを調整 */
+            
+        }
+
+        /* 四角形の箱を定義 */
+        .boxed {
+            border: 2px solid #000; /* 枠線を設定 */
+            padding: 10px; /* 内側の余白を設定 */
+            width: 400px; /* 幅を設定 */
+            margin: 0 auto; /* 中央に配置するためのマージン */
+            background-color: aliceblue;
+        }
+
+        /* ヘッダー全体のスタイル */
+        .header {
+            position: relative;
+            text-align: center;
+            background: linear-gradient(to right, mediumaquamarine, snow, salmon);
+            padding: 20px;
+            display: flex; /* flexboxを使用して画像を横に並べる */
+            align-items: center; /* 画像とテキストを垂直方向に中央揃え */
+        }
+
+
+        /* 画像スライダーのスタイル */
+        .image-slider {
+            position: relative;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden; /* 横スクロールを非表示にする */
+        }
+
+        .image-slider img {
+            width: 100px;
+            height: auto;
+            
+            animation: slide 20s infinite linear; /* 画像スライドのアニメーションを設定 */
+            opacity: 0.6; /* 画像を透過させる */
+            transition: opacity 0.5s ease; /* 透過効果のトランジションを設定 */
+        }
+
+        .image-slider img:hover {
+        opacity: 1; /* マウスホバー時に画像を不透明にする */
+        }
+
+        /* ヘッダータイトルのスタイル */
+        h1 {
+            position: absolute;
+            top: 50%; /* 上端を中央に配置 */
+            left: 50%; /* 左端を中央に配置 */
+            transform: translate(-50%, -50%); /* 中央揃え */
+            font-size: 30px;
+        }
+
+        /* 画像スライドのアニメーション */
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%); /* 画像が左にスライド */
+            }
+        }
+
+    </style>
+    
+</head>
+    
+<body>
+    <div class="header">
+        <div class="image-slider">
+            <img src="toucar.png" alt="Image 1">
+            <img src="toucar.png" alt="Image 2">
+            <img src="toucar.png" alt="Image 3">
+            <img src="toucar.png" alt="Image 4">
+            <img src="toucar.png" alt="Image 5">
+            <img src="toucar.png" alt="Image 6">
+            <img src="toucar.png" alt="Image 7">
+            <img src="toucar.png" alt="Image 8">
+            <img src="toucar.png" alt="Image 9">
+            <img src="toucar.png" alt="Image 10">
+            <img src="toucar.png" alt="Image 11">
+            <img src="toucar.png" alt="Image 12">
+            <img src="toucar.png" alt="Image 13">
+            <img src="toucar.png" alt="Image 14">
+            <img src="toucar.png" alt="Image 15">
+            <img src="toucar.png" alt="Image 16">
+            <img src="toucar.png" alt="Image 17">
+            <img src="toucar.png" alt="Image 18">
+            <img src="toucar.png" alt="Image 19">
+        </div>
+        <h1>ナポリの男たち楽曲診断</h1>
+        
+    </div>
+
+    <div id="caution">
+        <p align="center">ニコニコ動画で無料公開されているチャンネル放送や4人実況,<br> Youtubeの歌倉庫に格納されている楽曲および切り抜き動画から聴くことができる</br>
+            全40曲の中から, あなたの好みに刺さるものを診断します.</p>
+        <p align="center">イイトコロジャナイノー!:はい<br>ウーロンチャアァ…:いいえ</br></p>
+    </div>
+
+    <div id="questions">
+        <!-- 質問フォーム -->
+        <h2>4人の中だと一番誰推し？</h2>
+        <button onclick="updateScores(1, '蘭たん')" style="background-color: plum;">蘭たん</button>
+        <button onclick="updateScores(1, 'SUGIRU')" style="background-color: khaki;">SUGIRU</button>
+        <button onclick="updateScores(1, 'hacchi')" style="background-color: mediumaquamarine;">hacchi</button>
+        <button onclick="updateScores(1, 'shu3')" style="background-color: skyblue;">shu3</button>
+    </div>
+
+    
+
+    <div id="results" style="display: none;">
+          <!-- 結果テーブル -->
+          <h2 align="center">おすすめ楽曲TOP5</h2>
+          <!-- TOP2のテキストを表示 -->
+          <p id="top1" align="center"></p>
+          <p id="top2" align="center"></p>
+          <p id="top3" align="center"></p>
+          <p id="top4" align="center"></p>
+          <p id="top5" align="center"></p>
+          <!-- 空白のスペース -->
+          <div style="height: 80px;"></div>
+          <h2 align="center">ナポ男楽曲ソート結果</h2>
+        <table>
+            <tr>
+                <th>順位</th>
+                <th>楽曲</th>
+            </tr>
+            <tr>
+                <td id="rank1"></td>
+                <td id="song1"></td>
+            </tr>
+            <tr>
+                <td id="rank2"></td>
+                <td id="song2"></td>
+            </tr>
+            <tr>
+                <td id="rank3"></td>
+                <td id="song3"></td>
+            </tr>
+            <tr>
+                <td id="rank4"></td>
+                <td id="song4"></td>
+            </tr>
+            <tr>
+                <td id="rank5"></td>
+                <td id="song5"></td>
+            </tr>
+            <tr>
+                <td id="rank6"></td>
+                <td id="song6"></td>
+            </tr>
+            <tr>
+                <td id="rank7"></td>
+                <td id="song7"></td>
+            </tr>
+            <tr>
+                <td id="rank8"></td>
+                <td id="song8"></td>
+            </tr>
+            <tr>
+                <td id="rank9"></td>
+                <td id="song9"></td>
+            </tr>
+            <tr>
+                <td id="rank10"></td>
+                <td id="song10"></td>
+            </tr>
+            <tr>
+                <td id="rank11"></td>
+                <td id="song11"></td>
+            </tr>
+            <tr>
+                <td id="rank12"></td>
+                <td id="song12"></td>
+            </tr>
+            <tr>
+                <td id="rank13"></td>
+                <td id="song13"></td>
+            </tr>
+            <tr>
+                <td id="rank14"></td>
+                <td id="song14"></td>
+            </tr>
+            <tr>
+                <td id="rank15"></td>
+                <td id="song15"></td>
+            </tr>
+            <tr>
+                <td id="rank16"></td>
+                <td id="song16"></td>
+            </tr>
+            <tr>
+                <td id="rank17"></td>
+                <td id="song17"></td>
+            </tr>
+            <tr>
+                <td id="rank18"></td>
+                <td id="song18"></td>
+            </tr>
+            <tr>
+                <td id="rank19"></td>
+                <td id="song19"></td>
+            </tr>
+            <tr>
+                <td id="rank20"></td>
+                <td id="song20"></td>
+            </tr>
+            <tr>
+                <td id="rank21"></td>
+                <td id="song21"></td>
+            </tr>
+            <tr>
+                <td id="rank22"></td>
+                <td id="song22"></td>
+            </tr>
+            <tr>
+                <td id="rank23"></td>
+                <td id="song23"></td>
+            </tr>
+            <tr>
+                <td id="rank24"></td>
+                <td id="song24"></td>
+            </tr>
+            <tr>
+                <td id="rank25"></td>
+                <td id="song25"></td>
+            </tr>
+            <tr>
+                <td id="rank26"></td>
+                <td id="song26"></td>
+            </tr>
+            <tr>
+                <td id="rank27"></td>
+                <td id="song27"></td>
+            </tr>
+            <tr>
+                <td id="rank28"></td>
+                <td id="song28"></td>
+            </tr>
+            <tr>
+                <td id="rank29"></td>
+                <td id="song29"></td>
+            </tr>
+            <tr>
+                <td id="rank30"></td>
+                <td id="song30"></td>
+            </tr>
+            <tr>
+                <td id="rank31"></td>
+                <td id="song31"></td>
+            </tr>
+            <tr>
+                <td id="rank32"></td>
+                <td id="song32"></td>
+            </tr>
+            <tr>
+                <td id="rank33"></td>
+                <td id="song33"></td>
+            </tr>
+            <tr>
+                <td id="rank34"></td>
+                <td id="song34"></td>
+            </tr>
+            <tr>
+                <td id="rank35"></td>
+                <td id="song35"></td>
+            </tr>
+            <tr>
+                <td id="rank36"></td>
+                <td id="song36"></td>
+            </tr>
+            <tr>
+                <td id="rank37"></td>
+                <td id="song37"></td>
+            </tr>
+            <tr>
+                <td id="rank38"></td>
+                <td id="song38"></td>
+            </tr>
+            <tr>
+                <td id="rank39"></td>
+                <td id="song39"></td>
+            </tr>
+            <tr>
+                <td id="rank40"></td>
+                <td id="song40"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- もう一度始めるボタンを追加 -->
+    <div id="restart" style="display: none;">
+        <button onclick="restartQuiz()" style="background: linear-gradient(to right, mediumaquamarine, snow, salmon)">もう一度始める</button>
+    </div>
+
+    <div id="box" class="boxed" style="display: none;">
+        <p align="center">
+            引用元
+            <br>
+                <cite>
+                    <a href="https://www.youtube.com/@napolimens/featured">
+                        Youtube:ナポリの男たち
+                    </a>
+                </cite>
+            </br>
+            <br>
+                <cite>
+                    <a href="https://www.youtube.com/@user-vn1ne1dr5l">
+                        Youtube:ナポリの男たち切り抜き【公認】
+                    </a>
+                </cite>
+            </br>
+            <br>
+                <cite>
+                    <a href="https://www.nicovideo.jp/user/58413388">
+                        ニコニコ動画:ナポリの男たち
+                    </a>
+                </cite>
+            </br>
+            <br>
+                <cite>
+                    <a href="https://ch.nicovideo.jp/naporich">
+                        ニコニコ動画:ナポリの男たちch
+                    </a>
+                </cite>
+            </br>
+        </p>
+    </div>
+
+    <p align="right">製作者: かま(<a href="https://twitter.com/karuma_garbage">@karuma_garbage</a>)</p>
+    
+
+    <script>
+        let scores = Array(40).fill(0); // 13個の楽曲に対応する得点を0で初期化
+        let currentQuestion = 1;
+        let select1 = ["イイトコロジャナイノー!", "ウーロンチャアァ…"];
+        let select2 = ["いつか行きたいねナポリ", "shu3:基本1人でいたいんで…"]
+
+        // 各質問に対する楽曲のピックアップスコアを定義
+        const q1 = {
+            '蘭たん': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 23, 25, 26, 27, 30, 31, 33, 34, 35, 36 ,37, 38, 39],
+            'SUGIRU': [0, 1, 6, 9, 11, 12, 13, 14, 15, 16, 29, 31, 32, 33, 34, 35, 38],
+            'hacchi': [0, 3, 6, 8, 11, 17, 18, 19, 20, 30, 31, 32, 33, 34, 35 ,37],
+            'shu3': [0, 2, 5, 6, 10, 11, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36]
+        };
+        
+        const q2 = {
+            'イイトコロジャナイノー!': [4, 7, 9, 18, 25, 26, 27, 29, 37],
+            'ウーロンチャアァ…': [6, 8, 13, 15, 32]
+        };
+
+        const q3 = {
+            'イイトコロジャナイノー!': [10, 14, 16, 18, 19, 20, 21, 22, 26, 27, 33, 34],
+            'ウーロンチャアァ…': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 15, 17, 23, 24, 25, 28, 29, 30, 31, 32, 35, 36, 37, 38, 39]
+        };
+
+        const q4 = {
+            'イイトコロジャナイノー!': [0,3,5,7,8,10,13,18,21,22,24,28,29,31,32,35,36,37,38,39],
+            'ウーロンチャアァ…': [2,4,6,9,11,12,14,15,16,17,20,23,25,26,27,30,33,34]
+        };
+
+        const q5 = {
+            'イイトコロジャナイノー!': [0,6,9,10,11,12,14,15,16,17,19,20,23,27,28,34,35,36,37,38,39],
+            'ウーロンチャアァ…': [1,2,3,4,5,7,8,13,18,21,22,24,29,30,31,32,33]
+        };
+
+        const q6 = {
+            'イイトコロジャナイノー!': [7,8,13,32,35,36,37,38],
+            'ウーロンチャアァ…': [1,2,3,4,5,6,9,10,14,15,16,17,18,19,20,21,22,23,25,26,27,28,29,30,33,34,39]
+        };
+
+        const q7 = {
+            'イイトコロジャナイノー!': [6,9,11,12,15,19,20,24,25,30,35],
+            'ウーロンチャアァ…': [1,2,3,4,10,14,16,21,22,23,26,27,36,37,38]
+        };
+
+        const q8 = {
+            'イイトコロジャナイノー!': [0,5,9,13,23,24,30,31],
+            'ウーロンチャアァ…': [2,3,4,6,711,12,14,16,17,18,19,20,21,22,26,27,28,29,33,34,35,36,37,38]
+        };
+
+        const q9 = {
+            'イイトコロジャナイノー!': [1, 2, 3],
+            'ウーロンチャアァ…': [0, 11, 28, 30, 31, 32, 33, 34, 35, 38,39]
+        };
+
+        const q10 = {
+            'イイトコロジャナイノー!': [0,1,2,3,4,7,8,9,10,13,14,19,20,23,24,26,27],
+            'ウーロンチャアァ…': [5,6,11,12,15,16,17,18,21,22,25,28,29,30,31,32,33,34,35,36,37,38,39]
+        };
+
+        const q11 = {
+            'イイトコロジャナイノー!': [0,5,10,11,12,13,14,16,17,18,19,20,23,27,29,34,39],
+            'ウーロンチャアァ…': [1,2,3,4,6,7,8,24,31,32,33,35,36,37,38]
+        };
+
+        const q12 = {
+            'イイトコロジャナイノー!': [1,2,11,21,22,23,26,29,33,34],
+            'ウーロンチャアァ…': [3,4,5,6,7,8,9,12,13,14,15,16,17,18,19,20,31,32,35,36,37,38]
+        };
+
+        const q13 = {
+            'イイトコロジャナイノー!': [11,30,31,32,35,36,37,38,39],
+            'ウーロンチャアァ…': [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,33,34]
+        };
+
+        const q14 = {
+            'いつか行きたいねナポリ': [0,6,7,32,33,34,35,39],
+            'shu3:基本1人でいたいんで…': [1,2,3,4,5,12,21,22,24,28,29,]
+        };
+
+        const q15 = {
+            'イイトコロジャナイノー!': [0,4,6,7,9,10,14,18,23,26,27,29,33,34,37,39],
+            'ウーロンチャアァ…': [5,8,11,12,17,21,22,25,28]
+        };
+
+        const q16 = {
+            'イイトコロジャナイノー!': [4,6,7,8,11,12,15,19,20,25],
+            'ウーロンチャアァ…': [2,21,22,23,26,27,31,34]
+        };
+
+        const q17 = {
+            'イイトコロジャナイノー!': [6,7,9,11,15,24,25,30,31,32],
+            'ウーロンチャアァ…': [0,1,2,3,4,5,8,10,12,13,14,16,17,18,19,20,21,22,23,26,27,28,29,33,34,35,36,37,38,39]
+        };
+
+        const songUrls = [
+            'https://youtu.be/JZW_3RjYhqU?si=x327tpknEy84SgN7', 
+            'https://youtu.be/cLgMMChC6IU?si=B63TsRp1pR4sK9c4',
+            'https://youtu.be/cLgMMChC6IU?si=B63TsRp1pR4sK9c4',
+            'https://youtu.be/cLgMMChC6IU?si=B63TsRp1pR4sK9c4',
+            'https://youtu.be/iny5j5Ahbh8?si=-ZQi7hfzfMaTcRAf',
+            'https://youtu.be/RngJOIMQrz0?si=s5kq09oxiyJs_AHu',
+            'https://youtu.be/JCCKHm0FsUY?si=HbBw6_KnEuw0amf6',
+            'https://youtu.be/7aK5wV45I5I?si=j8xCJOLj17pLfyJC',
+            'https://youtu.be/5A62k2tPe20?si=lVMgZtm-6KYz85so',
+            'https://youtu.be/5A62k2tPe20?si=lVMgZtm-6KYz85so',
+            'https://youtu.be/5A62k2tPe20?si=lVMgZtm-6KYz85so',
+            'https://youtu.be/bxTKdXBy_Lk?si=WIVG00BG-UXGykvD',
+            'https://youtu.be/8OsFbkDhPn4?si=0mLg-nOJFdQmQRkF',
+            'https://youtu.be/cLBiQRxwyCA?si=5pBMX8tvQ6Y0VLaY',
+            'https://youtu.be/Hbqf1NEmF4w?si=N52u5VfSWTlm49Jh',
+            'https://youtu.be/WFJt-p5z2uY?si=LrCQVnSEkgQ-uIiG',
+            'https://youtu.be/dLqqL6NQE3g?si=F9rYXQ6xowjSiyD2',
+            'https://youtu.be/pWb1DtV6KJk?si=QEmeZ3q0_UZq8F9T',
+            'https://youtu.be/tFwP3YpopMg?si=ECtPyLGdZvS-Rnkg',
+            'https://youtu.be/WFJt-p5z2uY?si=HYSETvSPg7BlSySb',
+            'https://youtu.be/dLqqL6NQE3g?si=jqN8rfODJq-yZqug',
+            'https://youtu.be/_1t-Utl7Sps?si=LavviLViIgoT8Rz6',
+            'https://youtu.be/1Vn4qie9YN0?si=kpk-YQ-Vqmd0iMZA',
+            'https://youtu.be/vJGQLltniZY?si=Jw8hz4MV-pzLF8bS',
+            'https://youtu.be/jLbuiswY5-I?si=LTsIzpZZgDoakIWJ',
+            'https://youtu.be/H8-s2TIay6Y?si=CJD1kMXVFGWEKyDc',
+            'https://youtu.be/WFJt-p5z2uY?si=b5o4oJvZZX3wxZc9',
+            'https://youtu.be/dLqqL6NQE3g?si=nEWi7JP9zPJUFgZ2',
+            'https://youtu.be/lshRIlYCYBM?si=KUUY_FBkgup84wWi',
+            'https://www.nicovideo.jp/watch/so35336806',
+            'https://youtu.be/F6uzbrt1Hmk?si=GXIFJ6ydAhGdymAY',
+            'https://youtu.be/F6uzbrt1Hmk?si=GXIFJ6ydAhGdymAY',
+            'https://www.nicovideo.jp/watch/so33484114',
+            'https://youtu.be/F6uzbrt1Hmk?si=GXIFJ6ydAhGdymAY',
+            'https://youtu.be/5A62k2tPe20?si=Lyq649vICa_aiRNU',
+            'https://www.nicovideo.jp/watch/so37105999',
+            'https://www.nicovideo.jp/watch/so37105999',
+            'https://www.nicovideo.jp/watch/so37105999',
+            'https://www.nicovideo.jp/watch/so37105999',
+            'https://youtu.be/C5ecZ20Ur3E?si=m8Ajx9YyHnz0FJKz',
+        ];
+
+
+        function updateScores(question, answer) {
+            const scoresToAdd = getScoresToAdd(question, answer);
+
+            for (let i = 0; i < scoresToAdd.length; i++) {
+                scores[i] += scoresToAdd[i];
+            }
+
+            // 順位を計算
+            let rankedIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 ,37, 38, 39].sort((a, b) => scores[b] - scores[a]);
+
+            // 同点の場合に高い順位に合わせる
+            let currentRank = 1;
+            let prevScore = scores[rankedIndices[0]];
+            for (let i = 0; i < 40; i++) {
+                let index = rankedIndices[i];
+                let songName = ""; // 楽曲名
+                let url = ""; // 楽曲のURL
+                if (scores[index] === prevScore) {
+                    document.getElementById(`rank${i + 1}`).textContent = currentRank;
+                } else {
+                    currentRank = i + 1;
+                    prevScore = scores[index];
+                    document.getElementById(`rank${i + 1}`).textContent = currentRank;
+                }
+
+                // 楽曲名とURLを対応させる
+                switch (index) {
+                    case 0:
+                        songName = "涙塩分マルゲリータ";
+                        url = songUrls[0];
+                        break;
+                    case 1:
+                        songName = "好きやねん(さだ民生)";
+                        url = songUrls[1];
+                        break;
+                    case 2:
+                        songName = "ローション大蛇(さだ民生)";
+                        url = songUrls[2];
+                        break;
+                    case 3:
+                        songName = "白ニット センター分け(さだ民生)";
+                        url = songUrls[3];
+                        break;
+                    case 4:
+                        songName = "解放 ～リベレーション～";
+                        url = songUrls[4];
+                        break;
+                    case 5:
+                        songName = "高槻ワンサイドラバー";
+                        url = songUrls[5];
+                        break;
+                    case 6:
+                        songName = "魔法少女ミンキーピンキーの歌";
+                        url = songUrls[6];
+                        break;
+                    case 7:
+                        songName = "僕も(わたしも)";
+                        url = songUrls[7];
+                        break;
+                    case 8:
+                        songName = "老境";
+                        url = songUrls[8];
+                        break;
+                    case 9:
+                        songName = "A-FLOW";
+                        url = songUrls[9];
+                        break;
+                    case 10:
+                        songName = "Spicy Addition";
+                        url = songUrls[10];
+                        break;
+                    case 11:
+                        songName = "あの星を求めて";
+                        url = songUrls[11];
+                        break;
+                    case 12:
+                        songName = "おじさんの歌";
+                        url = songUrls[12];
+                        break;
+                    case 13:
+                        songName = "はつ桜";
+                        url = songUrls[13];
+                        break;
+                    case 14:
+                        songName = "真相 ～janseung～";
+                        url = songUrls[14];
+                        break;
+                    case 15:
+                        songName = "ウエストスター☆ピーターパン";
+                        url = songUrls[15];
+                        break;
+                    case 16:
+                        songName = "O,Такацуки";
+                        url = songUrls[16];
+                        break;
+                    case 17:
+                        songName = "ワン・エイト・ディスコ";
+                        url = songUrls[17];
+                        break;
+                    case 18:
+                        songName = "CHANGE MY MIND";
+                        url = songUrls[18];
+                        break;
+                    case 19:
+                        songName = "hacchi likes apples.";
+                        url = songUrls[19];
+                        break;
+                    case 20:
+                        songName = "ハッチャンサンバ";
+                        url = songUrls[20];
+                        break;
+                    case 21:
+                        songName = "ティニス";
+                        url = songUrls[21];
+                        break;
+                    case 22:
+                        songName = "Dream Fire";
+                        url = songUrls[22];
+                        break;
+                    case 23:
+                        songName = "ヌメ乗りジョニー";
+                        url = songUrls[23];
+                        break;
+                    case 24:
+                        songName = "Dearパパ ～Bad Description～";
+                        url = songUrls[24];
+                        break;
+                    case 25:
+                        songName = "FIGHT！デバッグ☆シュピキュア";
+                        url = songUrls[25];
+                        break;
+                    case 26:
+                        songName = "本能デトックス";
+                        url = songUrls[26];
+                        break;
+                    case 27:
+                        songName = "PARADISE NIGHT";
+                        url = songUrls[27];
+                        break;
+                    case 28:
+                        songName = "shu3やめへんでの歌";
+                        url = songUrls[28];
+                        break;
+                    case 29:
+                        songName = "高槻の風のように…";
+                        url = songUrls[29];
+                        break;
+                    case 30:
+                        songName = "RING-TONE";
+                        url = songUrls[30];
+                        break;
+                    case 31:
+                        songName = "横浜哀恋慕";
+                        url = songUrls[31];
+                        break;
+                    case 32:
+                        songName = "ナポ男再結成の歌(仮)";
+                        url = songUrls[32];
+                        break;
+                    case 33:
+                        songName = "KAKUGARI RAP BATTLE";
+                        url = songUrls[33];
+                        break;
+                    case 34:
+                        songName = "OH! SUN POWER3";
+                        url = songUrls[34];
+                        break;
+                    case 35:
+                        songName = "嗚呼、美しきナポンヌ";
+                        url = songUrls[35];
+                        break;
+                    case 36:
+                        songName = "王の憂い";
+                        url = songUrls[36];
+                        break;
+                    case 37:
+                        songName = "鳥になりたい";
+                        url = songUrls[37];
+                        break;
+                    case 38:
+                        songName = "ナポンヌのムスカリ";
+                        url = songUrls[38];
+                        break;
+                    case 39:
+                        songName = "スリーピングシティ";
+                        url = songUrls[39];
+                        break;
+                }
+
+                // 楽曲名をリンクとして表示
+                document.getElementById(`song${i + 1}`).innerHTML = `<a href="${url}" target="_blank">${songName}</a>`;
+            }
+            
+            // TOP2の楽曲を表示
+            document.getElementById('top1').innerHTML = `<b>1位:</b> ${document.getElementById('song1').innerHTML}`;
+            document.getElementById('top2').innerHTML = `<b>2位:</b> ${document.getElementById('song2').innerHTML}`;
+            document.getElementById('top3').innerHTML = `<b>3位:</b> ${document.getElementById('song3').innerHTML}`;
+            document.getElementById('top4').innerHTML = `<b>4位:</b> ${document.getElementById('song4').innerHTML}`;
+            document.getElementById('top5').innerHTML = `<b>5位:</b> ${document.getElementById('song5').innerHTML}`;
+
+
+                
+
+            // 次の質問を表示または結果を表示
+            if (currentQuestion < 17) {
+                currentQuestion++;
+                // 質問2の文言を変更
+                let questionText = "";
+                if (currentQuestion === 2) {
+                    questionText = "二度と迷わない… 自分を変えたいですか？";
+                    currentChoices = select1;
+                } else if (currentQuestion === 3) {
+                    questionText = "モチャーン!! 海外の音楽を好みますか？";
+                    currentChoices = select1; // 質問3に対する選択肢を設定
+                } else if (currentQuestion === 4) {
+                    questionText = "リフレイン… エモさを重視する？";
+                    currentChoices = select1; // 質問4に対する選択肢を設定
+                } else if (currentQuestion === 5) {
+                    questionText = "サンバ! 踊りたい気分を重視する？";
+                    currentChoices = select1; // 質問5に対する選択肢を設定
+                } else if (currentQuestion === 6) {
+                    questionText = "歌劇や合唱が聞きたい気分ですか？";
+                    currentChoices = select1; // 質問6に対する選択肢を設定
+                } else if (currentQuestion === 7) {
+                    questionText = "ふわふわもこもこ 可愛さを重視しますか？";
+                    currentChoices = select1; // 質問7に対する選択肢を設定
+                } else if (currentQuestion === 8) {
+                    questionText = "キスしてハグして 恋愛ソングは好みですか？";
+                    currentChoices = select1; // 質問8に対する選択肢を設定
+                } else if (currentQuestion === 9) {
+                    questionText = "ナポ男にオーディションで新メンバーを入れたいと思いますか？";
+                    currentChoices = select1; // 質問9に対する選択肢を設定
+                } else if (currentQuestion === 10) {
+                    questionText = "ナポ男たちのものまね成分を重視しますか？";
+                    currentChoices = select1; // 質問10に対する選択肢を設定
+                } else if (currentQuestion === 11) {
+                    questionText = "鉄の箱に乗って… ナポ男の曲をドライブで流したい？";
+                    currentChoices = select1; // 質問11に対する選択肢を設定
+                } else if (currentQuestion === 12) {
+                    questionText = "チェコ… もう一度TENNISを真剣に見つめ直したい？";
+                    currentChoices = select1; // 質問12に対する選択肢を設定
+                } else if (currentQuestion === 13) {
+                    questionText = "あのムスカリ畑まで競争だ… 2人の友情物語は好きですか？";
+                    currentChoices = select1; // 質問13に対する選択肢を設定
+                } else if (currentQuestion === 14) {
+                    questionText = "ナポ男4人で協力した楽曲が好き？それとも個人楽曲？";
+                    currentChoices = select2; // 質問14に対する選択肢を設定
+                } else if (currentQuestion === 15) {
+                    questionText = "撲殺! 日々の生活から解放されたいですか？";
+                    currentChoices = select1; // 質問15に対する選択肢を設定
+                } else if (currentQuestion === 16) {
+                    questionText = "そんなにしょげた顔して何がしたいん？ 子供の心を忘れたくない？";
+                    currentChoices = select1; // 質問16に対する選択肢を設定
+                } else if (currentQuestion === 17) {
+                    questionText = "自分をデコってなんぼでしょ！ おじさんのキツイ声が聴きたい？";
+                    currentChoices = select1; // 質問17に対する選択肢を設定
+                }
+
+                document.getElementById('questions').innerHTML = `
+                    <h2>${questionText}</h2>
+                    ${generateButtons(currentChoices)}
+                `;
+            } else {
+                // 結果を表示
+                document.getElementById('caution').style.display = 'none';
+                document.getElementById('questions').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                
+                // ここに「もう一度始める」ボタンを表示するコードを追加
+                document.getElementById('restart').style.display = 'block';
+                document.getElementById('box').style.display = 'block';
+            }
+        }
+
+        // 選択肢に基づいてボタンを生成する関数
+        function generateButtons(choices) {
+            let buttonsHTML = '';
+            for (let choice of choices) {
+                buttonsHTML += `<button onclick="updateScores(${currentQuestion}, '${choice}')" style="background: linear-gradient(to right, mediumaquamarine, snow, salmon)">${choice}</button>`;
+            }
+            return buttonsHTML;
+        }
+
+        function getScoresToAdd(question, answer) {
+            let scoresToAdd = Array(40).fill(0);
+
+            // 対応する質問の楽曲ピックアップスコアを取得
+            let pickupScores = {};
+            if (question === 1) {
+                pickupScores = q1;
+            } else if (question === 2) {
+                pickupScores = q2;
+            } else if (question === 3) {
+                pickupScores = q3;
+            } else if (question === 4) {
+                pickupScores = q4;
+            } else if (question === 5) {
+                pickupScores = q5;
+            } else if (question === 6) {
+                pickupScores = q6;
+            } else if (question === 7) {
+                pickupScores = q7;
+            } else if (question === 8) {
+                pickupScores = q8;
+            } else if (question === 9) {
+                pickupScores = q9;
+            } else if (question === 10) {
+                pickupScores = q10;
+            } else if (question === 11) {
+                pickupScores = q11;
+            } else if (question === 12) {
+                pickupScores = q12;
+            } else if (question === 13) {
+                pickupScores = q13;
+            } else if (question === 14) {
+                pickupScores = q14;
+            } else if (question === 15) {
+                pickupScores = q15;
+            } else if (question === 16) {
+                pickupScores = q16;
+            } else if (question === 17) {
+                pickupScores = q17;
+            }
+
+            // スコアを加算
+            for (let i = 0; i < pickupScores[answer].length; i++) {
+                scoresToAdd[pickupScores[answer][i]] += 1;
+            }
+
+            return scoresToAdd;
+        }
+
+        function restartQuiz() {
+            // 得点をリセット
+            scores = Array(40).fill(0);
+
+            // 質問を最初の状態にリセット
+            currentQuestion = 1;
+            document.getElementById('caution').style.display = 'block';
+            document.getElementById('questions').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+
+            // 最初の質問を表示
+            document.getElementById('questions').innerHTML = `
+                <h2>4人の中だと一番誰推し？</h2>
+                <button onclick="updateScores(1, '蘭たん')" style="background-color: plum;">蘭たん</button>
+                <button onclick="updateScores(1, 'SUGIRU')" style="background-color: khaki;">SUGIRU</button>
+                <button onclick="updateScores(1, 'hacchi')" style="background-color: mediumaquamarine;">hacchi</button>
+                <button onclick="updateScores(1, 'shu3')" style="background-color: skyblue;">shu3</button>
+            `;
+
+            // 「もう一度始める」ボタンを非表示にし、質問フォームを表示
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('box').style.display = 'none';
+        }
+
+    </script>
+</body>
+</html>
